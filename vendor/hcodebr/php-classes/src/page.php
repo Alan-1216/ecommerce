@@ -14,7 +14,8 @@ class Page{
 		"data"=>[]
 	];
 
-	public function __construct($opts = array()){
+	public function __construct($opts = array())
+	{
 
 		$this->options = array_merge($this->defaults, $opts);
 
@@ -27,46 +28,53 @@ class Page{
 
 		Tpl::configure( $config );
 
-		$this->tpl = new Tpl;
+		$this->tpl = new Tpl();
 
-		$this->setData($this->options["data"]);
+		if($this->options['data']) $this->setData($this->options['data']);
 
-		$this->tpl->draw("header");
+		if($this->options['header'] === true) $this->tpl->draw("header", false);
+
+	}
+
+	public function __destruct()
+	{
+
+
+		if($this->options["footer"] ===true) $this->tpl->draw("footer", false);
+
 
 	}
 
 	private function setData($data = array())
 	{
+		
+		foreach($data as $key => $val)
+		{
 
-		foreach($data as $key => $value){
-			$this->tpl->assign($key, $value);
+			$this->tpl->assign($key, $val);
+
 		}
 	}
 
-	public function setTpl($name, $data = array(), $returnHTML = false)
+	public function setTpl($tplname, $data = array(), $returnHTML = false)
 	{
 
 		$this->setData($data);
 
-		return $this->tpl->draw($name, $returnHTML);
-
-	}
-
-	public function __destruct(){
-
-		$this->tpl->draw("footer");
+		return $this->tpl->draw($tplname, $returnHTML);
 
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
 ?>
+
+
+
+
+
+
+
+
+
+
+
