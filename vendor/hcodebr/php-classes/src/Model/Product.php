@@ -15,6 +15,20 @@ class Product extends Model{
 		
 	}
 
+	public static function checkList($list)
+	{
+
+		foreach($list as &$row){
+
+			$p = new Product();
+			$p->setData($row);
+			$row = $p->getValues();
+
+		}
+
+		return $list;
+	}
+
 	public function save()
 	{
 
@@ -64,7 +78,7 @@ class Product extends Model{
 		if(file_exists($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "res" . DIRECTORY_SEPARATOR . "site" . DIRECTORY_SEPARATOR . "img" . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->getidproduct() . ".jpg"))
 		{
 
-			$url = "/res/site/img/products" . $this->getidproduct() . ".jpg";
+			$url = "/res/site/img/products/" . $this->getidproduct() . ".jpg";
 
 		} else
 		{
