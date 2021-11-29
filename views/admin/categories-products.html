@@ -34,7 +34,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {loop = "$productsNotRelated"}
+                            {loop="$productsNotRelated"}
                             <tr>
                             <td>{$value.idproduct}</td>
                             <td>{$value.desproduct}</td>
@@ -65,12 +65,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {loop = "$productsRelated"}
+                            {loop="$productsRelated"}
                             <tr>
                             <td>{$value.idproduct}</td>
                             <td>{$value.desproduct}</td>
                             <td>
-                                <a href="/admin/categories/{$category.idcategory}/products/{$value.idproduct}/remove" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-left"></i> Remover </a>
+                                <a href="/admin/categories/{$category.idcategory}/products/{$value.idproduct}/remove" class="btn btn-primary btn-xs pull-right"><i class="fa fa-arrow-left"></i> Remover</a>
                             </td>
                             </tr>
                             {/loop}

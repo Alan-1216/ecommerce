@@ -7,7 +7,7 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active"><a href="/admin/categories">Categorias</a></li>
+    <li class="active"><a href="/admin/categories/">Categorias</a></li>
   </ol>
 </section>
 
@@ -32,7 +32,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {loop = "$categories"}
+                  {loop="$categories"}
                   <tr>
                     <td>{$value.idcategory}</td>
                     <td>{$value.descategory}</td>
