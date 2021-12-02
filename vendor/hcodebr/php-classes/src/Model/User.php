@@ -307,11 +307,13 @@ class User extends Model{
 
 	public static function getError()
 	{
-		$msg = (isset($_SESSION[User::ERROR]) && $_SESSION[User::ERROR]) ? $_SESSION[User::Error] : '';
+
+		$msg = (isset($_SESSION[User::ERROR]) && $_SESSION[User::ERROR]) ? $_SESSION[User::ERROR] : '';
 
 		User::clearError();
 
 		return $msg;
+
 	}
 
 	public static function clearError()
