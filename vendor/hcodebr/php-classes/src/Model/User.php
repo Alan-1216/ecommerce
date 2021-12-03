@@ -198,29 +198,28 @@ class User extends Model{
 
 	}
 
-	public static function getForgot($mail)
+	public static function getForgot($email, $inadmin = true)
 	{
 
 		$sql = new Sql();
 
 		$results = $sql->select("SELECT * FROM tb_persons a INNER JOIN tb_users b USING(tb_idperson) WHERE a.desemail = :email", array(
 
-			"email"=>$email
+			':email'=>$email
 		));
 
-		if(count($results) ===0)
+		if(count($results) === 0)
 		{
 			throw new \Exception("Nao foi possivel recuperar a senha.");
 		}
-
 		else
 		{
 
-			$data = $results2[0];
+			$data = $results[0];
 
 			$results2 = $sql->select("CALL sp_userspasswordsrecoveries_create(:iduser, :desip", array(
-				":iduser"=>$data["iduser"],
-				":desip"=>$_SERVER["REMOTE_ADDR"]
+				':iduser'=>$data["iduser"],
+				':desip'=>$_SERVER["REMOTE_ADDR"]
 			));
 
 			if(count($results2) ===0)
@@ -235,8 +234,14 @@ class User extends Model{
 				
 				$code = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_128, User::SECRET, $dataRecovery["idrecovery"], MCRYPT_MODE_ECB));
 
-				$link = "127.0.0.1:83/admin/forgot/reset?code=$code";
-				
+				if ($inadmin === true){
+
+					$link = "127.0.0.1:83/admin/forgot/reset?code=$code";
+				} else {
+
+					$link = "127.0.0.1:83/forgot/reset?code=$code";
+				}
+
 				$maier = new Mailer($data["desemail"], $data["desperson"], "Redefinir Senha da PC GameStore", "forgot", array(
 
 					"name"=>$data["desperson"],
